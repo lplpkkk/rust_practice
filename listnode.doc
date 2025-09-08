@@ -1,3 +1,8 @@
+
+/* -------------------------------------------------------------------------
+           * stack adn heap:
+ -------------------------------------------------------------------------*/
+
 +-------------------+
 | v (vec![1,2,3])   |
 +-------------------+
@@ -14,3 +19,24 @@ ptr2 ──> [ ListNode { val: 2, next: Some(ptr3) } ]
            |
            v
 ptr3 ──> [ ListNode { val: 3, next: None } ]
+
+
+/* -------------------------------------------------------------------------
+           *Drop 時間線:
+ -------------------------------------------------------------------------*/
+當 main 結束時：
+
+list 變數離開作用域 → 呼叫 drop(list)。
+list = Some(Box(node1)) → drop 裡面的 Box(node1)。
+
+Box(node1) → 釋放 heap 上的 node1，同時 drop node1.next。
+
+node1.next = Some(Box(node2)) → drop Box(node2)。
+
+Box(node2) → 釋放 heap 上的 node2，同時 drop node2.next。
+
+node2.next = Some(Box(node3)) → drop Box(node3)。
+
+Box(node3) → 釋放 heap 上的 node3，next = None → 結束。
+
+所以整條鏈表會被一個接一個釋放。
