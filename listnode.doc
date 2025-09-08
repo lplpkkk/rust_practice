@@ -1,0 +1,16 @@
++-------------------+
+| v (vec![1,2,3])   |
++-------------------+
+| list (Option)     | ---> Some(ptr1)
++-------------------+
+| tail (&mut list)  | (最後迴圈結束後指向 None)
++-------------------+
+
+
+ptr1 ──> [ ListNode { val: 1, next: Some(ptr2) } ]
+           |
+           v
+ptr2 ──> [ ListNode { val: 2, next: Some(ptr3) } ]
+           |
+           v
+ptr3 ──> [ ListNode { val: 3, next: None } ]
