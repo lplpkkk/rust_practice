@@ -4,6 +4,24 @@ struct ListNode {
     next: Option<Box<ListNode>>,
 }
 
+fn rev(mut head: Option<Box<ListNode>>)->Option<Box<ListNode>>{
+    let mut prev=None;
+    let mut cur=head;
+    
+    while let Some(mut node)=cur.take(){
+        //store next one
+        let next_node=node.next.take();
+        //point back
+        node.next=prev.take();
+        //update prev 
+        prev=Some(node);
+        // move forward
+        cur=next_node;
+    }
+    
+    prev
+}
+
 fn main() {
     let v=vec![1,2,3];
     let mut list:Option<Box<ListNode>>=None;
@@ -19,4 +37,7 @@ fn main() {
     }
     
     println!("{:?}",list);
+    let rev_list=rev(list);
+    println!("{:?}",rev_list);
+    
 }
